@@ -1,0 +1,47 @@
+<!doctype html>
+
+<html>
+<head>
+  <title>PCOS_recipe_search</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+
+  <script src="../platform/platform.js"></script>
+
+  <link rel="import" href="link-search.html">
+  <link rel="import" href="polymer-jsonp/polymer-jsonp.html">
+
+
+  
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body unresolved>
+
+ <template id="app" is="auto-binding">
+    <polymer-jsonp auto 
+    
+        url="https://api.yummly.com/v1/api/recipes?_app_id=1da21556&_app_key=dedbe9503895fd66929f8a5f584e9db0&q=salmon&nutrition.CHOCDF.min=0&nutrition.CHOCDF.max=20&nutrition.PROCNT.min=9&nutrition.PROCNT.max=50&callback=">
+          
+        </polymer-jsonp> 
+    
+       <template bind="{{ recipeResults }}"></template>
+ <link-search></link-search>
+</template>
+  <script>
+    document.addEventListener('polymer-ready', function() {
+      var jsonp = document.querySelector("polymer-jsonp");
+      jsonp.addEventListener("polymer-response", 
+        function(e) {
+          document.querySelector('template').model = {
+            recipeResults: e.detail.response[0]
+          };
+        }
+      );
+    });
+  </script>
+</body>
+</html>

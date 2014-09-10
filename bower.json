@@ -1,0 +1,16 @@
+{
+  "name": "PCOS_recipe_search",
+  "description": "",
+  "homepage": "",
+  "keywords": [
+  ],
+  "author": "",
+  "private": true,
+  "dependencies": {
+    "polymer": "Polymer/polymer#master",
+    "paper-elements": "Polymer/paper-elements#master",
+    "core-ajax": "Polymer/core-ajax#master",
+    "core-elements": "Polymer/core-elements#master"
+
+  }
+}

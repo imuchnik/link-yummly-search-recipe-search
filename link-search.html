@@ -1,0 +1,145 @@
+<link rel="import" href="../polymer/polymer.html">
+
+<link rel="import" href="../core-drawer-panel/core-drawer-panel.html">
+<link rel="import" href="../core-icon-button/core-icon-button.html">
+<link rel="import" href="../core-toolbar/core-toolbar.html">
+<link rel="import" href="../core-header-panel/core-header-panel.html">
+<link rel="import" href="../core-field/core-field.html">
+<link rel="import" href="../core-icon/core-icon.html">
+<link rel="import" href="../core-input/core-input.html">
+<link rel="import" href="../core-icons/core-icons.html">
+<link rel="import" href="../paper-button/paper-button.html">
+<link rel="import" href="../core-ajax/core-ajax.html">
+<link rel="import" href="post-card.html">
+
+
+<polymer-element name="link-search">
+
+  <template>
+    <style>    
+      :host {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        box-sizing: border-box;
+      }
+      #core_drawer_panel {
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        bottom: 0px;
+        left: 10px;
+        width: 100%;
+        height: 100%;
+      }
+      #section {
+        box-shadow: rgba(0, 0, 0, 0.0980392) 0px 2px 4px, rgba(0, 0, 0, 0.0980392) 0px 0px 3px;
+        background-color: rgb(250, 250, 250);
+      }
+      #section1 {
+        height: 100%;
+        box-sizing: border-box;
+        background-color: rgb(221, 221, 221);
+      }
+      #core_header_panel {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0px;
+        left: 0px;
+      }
+      #core_toolbar {
+        color: rgb(255, 255, 255);
+        background-color: rgb(79, 125, 201);
+      }
+      #section2 {
+        height: 1000px;
+        background: linear-gradient(rgb(214, 227, 231), rgb(173, 216, 230));
+      }
+      #paper_item {
+        left: 1130px;
+        top: 520px;
+      }
+      #core_field1 {
+        left: 1130px;
+        top: 430px;
+      }
+      #core_input1 {
+        padding: 15px;
+      }
+      #min_protein {
+        padding: 5px;
+        margin: 5px;
+      }
+      #max_carbs {
+        padding: 5px;
+        margin: 5px;
+      }
+      #paper_button {
+        background-color: rgb(230, 124, 221);
+      }
+      #recipeSearch {
+        padding: 10px;
+        margin: 5px;
+        background-color: rgb(25, 130, 21);
+      }
+    </style>
+    <core-drawer-panel transition id="core_drawer_panel" touch-action>
+      <section id="section1" main>
+        <core-header-panel mode="standard" id="core_header_panel">
+          <core-toolbar id="core_toolbar">
+            <div id="div">
+              <h3 id="h3">Insulin Resistance Balanced Recipes Search</h3>
+            </div>
+          </core-toolbar>
+          <section id="section2" end-justified horizontal layout reverse>
+            <div layout vertical center>
+      <template repeat="{{recipe in recipeResults.matches}}">
+           <post-card
+          <img src="{{{recipe.imageUrlsBySize}}" width="70" height="120">
+          <h2>{{recipe.recipeName}}</h2>
+          
+        </post-card>
+        </template>
+    </div>
+          </section>
+        </core-header-panel>
+      </section>
+      <section id="section" drawer>
+        <core-field id="core_field" icon="search" theme="core-light-theme" center horizontal layout>
+          <core-icon icon="search" id="core_icon"></core-icon>
+          <core-input willvalidate placeholder="Find Recipe With" value="{{ value }}" id="core_input" flex></core-input>
+        </core-field>
+        <core-field id="carbs" icon="search" theme="core-light-theme" center horizontal layout>
+          <core-input willvalidate placeholder="Limit carbs up to "  value="{{ carbs }}" id="max_carbs" flex vertical layout></core-input>
+        </core-field>
+        <core-field id="core_field" theme="core-light-theme" center horizontal layout>
+          <core-input willvalidate placeholder="Minimum Protein Content"  value="{{ protein }}" id="min_protein" flex></core-input>
+        </core-field>
+        <paper-button label="Find Recipes" raisedbutton on-tap="{{doSearch}}" id="recipeSearch" class="colored" start-justified wrap-reverse one flex end></paper-button>
+        
+      <!--  <core-ajax auto-->
+      <!--  headers='{"Content-type":"text/javascript"}'-->
+      <!--  url="https://api.yummly.com/v1/api/recipes?_app_id=1da21556&_app_key=dedbe9503895fd66929f8a5f584e9db0&q=salmon&nutrition.CHOCDF.min=0&nutrition.CHOCDF.max=20&nutrition.PROCNT.min=9&nutrition.PROCNT.max=50" -->
+     
+      <!--  response="{{ recipeResults }}"-->
+      <!--  id="core_ajax" hidden>-->
+  
+      <!--</core-ajax>-->
+      </section>
+    </core-drawer-panel>
+  </template>
+
+  <script>
+
+    Polymer('link-search', {
+    doSearch:function(){
+     this.$.core_ajax.go();
+      
+    }
+    
+    });
+
+  </script>
+
+</polymer-element>
