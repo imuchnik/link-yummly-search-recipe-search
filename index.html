@@ -22,25 +22,13 @@
 <body unresolved>
 
  <template id="app" is="auto-binding">
-    <polymer-jsonp auto 
-    
-        url="https://api.yummly.com/v1/api/recipes?_app_id=1da21556&_app_key=dedbe9503895fd66929f8a5f584e9db0&q=salmon&nutrition.CHOCDF.min=0&nutrition.CHOCDF.max=20&nutrition.PROCNT.min=9&nutrition.PROCNT.max=50&callback=">
-          
-        </polymer-jsonp> 
-    
-       <template bind="{{ recipeResults }}"></template>
+   
+   
  <link-search></link-search>
 </template>
   <script>
     document.addEventListener('polymer-ready', function() {
-      var jsonp = document.querySelector("polymer-jsonp");
-      jsonp.addEventListener("polymer-response", 
-        function(e) {
-          document.querySelector('template').model = {
-            recipeResults: e.detail.response[0]
-          };
-        }
-      );
+     
     });
   </script>
 </body>

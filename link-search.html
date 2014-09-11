@@ -11,7 +11,7 @@
 <link rel="import" href="../paper-button/paper-button.html">
 <link rel="import" href="../core-ajax/core-ajax.html">
 <link rel="import" href="post-card.html">
-
+<link rel="import" href="polymer-jsonp/polymer-jsonp.html">
 
 <polymer-element name="link-search">
 
@@ -95,12 +95,13 @@
           <section id="section2" end-justified horizontal layout reverse>
             <div layout vertical center>
       <template repeat="{{recipe in recipeResults.matches}}">
-           <post-card
-          <img src="{{{recipe.imageUrlsBySize}}" width="70" height="120">
+           <post-card>
+          <img src="{{recipe.imageUrlsBySize.90}}" width="70" height="120">
           <h2>{{recipe.recipeName}}</h2>
           
         </post-card>
         </template>
+
     </div>
           </section>
         </core-header-panel>
@@ -118,14 +119,14 @@
         </core-field>
         <paper-button label="Find Recipes" raisedbutton on-tap="{{doSearch}}" id="recipeSearch" class="colored" start-justified wrap-reverse one flex end></paper-button>
         
-      <!--  <core-ajax auto-->
-      <!--  headers='{"Content-type":"text/javascript"}'-->
-      <!--  url="https://api.yummly.com/v1/api/recipes?_app_id=1da21556&_app_key=dedbe9503895fd66929f8a5f584e9db0&q=salmon&nutrition.CHOCDF.min=0&nutrition.CHOCDF.max=20&nutrition.PROCNT.min=9&nutrition.PROCNT.max=50" -->
      
-      <!--  response="{{ recipeResults }}"-->
-      <!--  id="core_ajax" hidden>-->
-  
-      <!--</core-ajax>-->
+
+       <polymer-jsonp 
+    
+        url="https://api.yummly.com/v1/api/recipes?_app_id=1da21556&_app_key=dedbe9503895fd66929f8a5f584e9db0&q={{value}}&nutrition.CHOCDF.min=0&nutrition.CHOCDF.max={{carbs}}&nutrition.PROCNT.min=9&nutrition.PROCNT.max={{protein}}&callback="
+          
+          response="{{ recipeResults }}" id="core_ajax">
+        </polymer-jsonp> 
       </section>
     </core-drawer-panel>
   </template>
